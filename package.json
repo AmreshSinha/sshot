@@ -2,7 +2,7 @@
   "name": "sshot",
   "version": "1.0.0",
   "description": "Website Screenshot API",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "dev": "node app.js",
     "start": "NODE_ENV=production node app.js",
