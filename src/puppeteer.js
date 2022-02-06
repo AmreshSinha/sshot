@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const path = require('path');
 
 module.exports = {
-  screenshot : async (link, xDim, yDim, delay) => {
+  screenshot : async (link, xDim, yDim, delay, query) => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.setViewport({
@@ -11,7 +11,7 @@ module.exports = {
     })
     await page.goto(link)
     await page.waitForTimeout(delay)
-    let pageTitle = await page.title();
+    let pageTitle = query;
     pageTitle = pageTitle.replace(/\W/g, "");
     await page.screenshot({ path: path.join(__dirname, `../cache/${pageTitle}.png`) });
     await browser.close();
