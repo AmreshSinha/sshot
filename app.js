@@ -32,6 +32,7 @@ app.get("/api", (req, res) => {
   let useDimension = "1920x1080";
   let useDevice = "desktop";
   let useDelay = 200;
+  let errorState = false;
 
   // https://gs.statcounter.com/screen-resolution-stats/desktop/worldwide
   const defaultDesktopRes = {
@@ -76,9 +77,15 @@ app.get("/api", (req, res) => {
   function isValidDimension(_string) {
     const matchPattern = /^([0-9].*)x([1-9].*)$/;
     if (matchPattern.test(_string)) {
-      const xy = text.split("x");
+      const xy = _string.split("x");
       if (xy.length != 2) {
         return false;
+      } else {
+        if (xy[0] < 1 || xy[1] < 1) {
+          return false;
+        } else {
+          return true;
+        }
       }
     }
     return matchPattern.test(_string);
@@ -104,6 +111,7 @@ app.get("/api", (req, res) => {
     if (isValidUrl(link)) {
       useLink = link;
     } else {
+      errorState = true;
       paramsBoolObject.link = false;
       res.status(400).send({
         status: "Error 400",
@@ -111,39 +119,43 @@ app.get("/api", (req, res) => {
       });
     }
   } else {
+    errorState = true;
     paramsBoolObject.link = false;
     res.status(400).send({
       status: "Error 400",
       message: "Link not provided",
     });
   }
-  if (dimension) {
+  if (dimension && !errorState) {
     if (isValidDimension(dimension)) {
       useDimension = dimension;
       paramsBoolObject.dimension = true;
     } else {
+      errorState = true;
       res.status(400).send({
         status: "Error 400",
         message: "Not a good Dimension",
       });
     }
   }
-  if (device) {
+  if (device && !errorState) {
     if (isValidDevice(device)) {
       useDevice = device;
       paramsBoolObject.device = true;
     } else {
+      errorState = true;
       res.status(400).send({
         status: "Error 400",
         message: "Not a good Device",
       });
     }
   }
-  if (delay) {
+  if (delay && !errorState) {
     if (isValidDelay(delay)) {
       useDelay = delay;
       paramsBoolObject.delay = true;
     } else {
+      errorState = true;
       res.status(400).send({
         status: "Error 400",
         message: "Delay is not valid or not in range",
@@ -151,90 +163,91 @@ app.get("/api", (req, res) => {
     }
   }
 
-  // Checking if the file is in cache or not
-  cache
-    .checkCache(useLink)
-    .then((result) => {
-      if (result) {
-        res.sendFile(path.join(__dirname, result.filepath));
-        // res.send(result);
-      } else {
-        // If not in cache, then create a screenshot and add to cache
-        if (dimension) {
-          let xDim, yDim;
-          let arr = text.split(useDimension);
-          (xDim = arr[0]), (yDim = arr[1]);
-          ss.screenshot(useLink, xDim, yDim, useDelay).then((filepath) => {
-            cache.setcache(useLink, { filepath: filepath }).then((result) => {
-              console.log(result);
-              res.sendFile(path.join(__dirname, result.filepath));
-            });
-          });
-        } else if (!dimension && device) {
-          let xDim, yDim;
-          if (device == "desktop") {
-            (xDim = defaultDesktopRes.X), (yDim = defaultDesktopRes.Y);
-            ss.screenshot(useLink, xDim, yDim, useDelay).then((filepath) => {
-              cache.setcache(useLink, { filepath: filepath }).then((result) => {
-                console.log(result);
-                res.sendFile(path.join(__dirname, result.filepath));
+  if (!errorState) {
+    // Forming a query string
+    let query = `${useLink}-${useDimension}-${useDevice}-${useDelay}`;
+
+    // Checking if the file is in cache or not
+    cache
+      .checkCache(query)
+      .then((result) => {
+        if (result) {
+          res.sendFile(path.join(__dirname, result.filepath));
+        } else {
+          // If not in cache, then create a screenshot and add to cache
+          if (dimension) {
+            let xDim, yDim;
+            let arr = useDimension.split("x");
+            console.log(arr);
+            xDim = parseInt(arr[0], 10);
+            yDim = parseInt(arr[1], 10);
+            ss.screenshot(useLink, xDim, yDim, useDelay, query).then(
+              (filepath) => {
+                cache.setcache(query, { filepath: filepath }).then((result) => {
+                  console.log(result);
+                  res.sendFile(path.join(__dirname, result.filepath));
+                });
+              }
+            );
+          } else if (!dimension && device) {
+            let xDim, yDim;
+            if (device == "desktop") {
+              (xDim = defaultDesktopRes.X), (yDim = defaultDesktopRes.Y);
+              ss.screenshot(useLink, xDim, yDim, useDelay, query).then(
+                (filepath) => {
+                  cache
+                    .setcache(query, { filepath: filepath })
+                    .then((result) => {
+                      console.log(result);
+                      res.sendFile(path.join(__dirname, result.filepath));
+                    });
+                }
+              );
+            } else if (device == "mobile") {
+              ss.screenshot(
+                useLink,
+                defaultMobileRes.X,
+                defaultMobileRes.Y,
+                useDelay,
+                query
+              ).then((filepath) => {
+                cache.setcache(query, { filepath: filepath }).then((result) => {
+                  console.log(result);
+                  res.sendFile(path.join(__dirname, result.filepath));
+                });
               });
-            });
-          } else if (device == "mobile") {
+            } else if (device == "tablet") {
+              ss.screenshot(
+                useLink,
+                defaultTabletRes.X,
+                defaultTabletRes.Y,
+                useDelay,
+                query
+              ).then((filepath) => {
+                cache.setcache(query, { filepath: filepath }).then((result) => {
+                  console.log(result);
+                  res.sendFile(path.join(__dirname, result.filepath));
+                });
+              });
+            }
+          } else {
             ss.screenshot(
               useLink,
-              defaultMobileRes.X,
-              defaultMobileRes.Y,
-              useDelay
+              defaultDesktopRes.X,
+              defaultDesktopRes.Y,
+              useDelay,
+              query
             ).then((filepath) => {
-              cache.setcache(useLink, { filepath: filepath }).then((result) => {
-                console.log(result);
-                res.sendFile(path.join(__dirname, result.filepath));
-              });
-            });
-          } else if (device == "tablet") {
-            ss.screenshot(
-              useLink,
-              defaultTabletRes.X,
-              defaultTabletRes.Y,
-              useDelay
-            ).then((filepath) => {
-              cache.setcache(useLink, { filepath: filepath }).then((result) => {
+              cache.setcache(query, { filepath: filepath }).then((result) => {
                 console.log(result);
                 res.sendFile(path.join(__dirname, result.filepath));
               });
             });
           }
-        } else {
-          ss.screenshot(
-            useLink,
-            defaultDesktopRes.X,
-            defaultDesktopRes.Y,
-            useDelay
-          ).then((filepath) => {
-            cache.setcache(useLink, { filepath: filepath }).then((result) => {
-              console.log(result);
-              res.sendFile(path.join(__dirname, result.filepath));
-            });
-          });
         }
-
-        // Setting Cache
-        // cache.setcache(useLink, { filepath: filepath }).then((result) => {
-        //   console.log(result);
-        //   res.send(result);
-        // });
-      }
-    })
-    .catch((err) => console.error(err));
-
-  // cache
-  //   .cache(uselink, { filename: "s" })
-  //   .then((json) => {
-  //     res.send(json);
-  //     console.log(json);
-  //   })
-  //   .catch((err) => res.send(err));
+      })
+      .catch((err) => console.error(err));
+  }
 });
 
 app.listen(port, () => {
