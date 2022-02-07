@@ -12,7 +12,7 @@ module.exports = {
     await page.goto(link)
     await page.waitForTimeout(delay)
     let pageTitle = query;
-    pageTitle = pageTitle.replace(/\W/g, "");
+    // pageTitle = pageTitle.replace(/\W/g, "");
     await page.screenshot({ path: path.join(__dirname, `../cache/${pageTitle}.png`) });
     await browser.close();
     return (`./cache/${pageTitle}.png`);
