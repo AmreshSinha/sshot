@@ -5,6 +5,7 @@ module.exports = {
   screenshot : async (link, xDim, yDim, delay, query) => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
+    page.setDefaultTimeout(10000);
     await page.setViewport({
       width: xDim,
       height: yDim

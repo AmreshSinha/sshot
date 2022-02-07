@@ -14,7 +14,7 @@ const port = process.env.EXPRESS_PORT || 3000;
 // Setting Public Folder
 // app.use('/css', express.static(path.join(__dirname, './public/css')));
 // app.use('/js', express.static(path.join(__dirname, './public/js')));
-app.use('/images', express.static(path.join(__dirname, './public/images')))
+app.use("/images", express.static(path.join(__dirname, "./public/images")));
 
 // Connecting to Redis and Launching Express App
 const client = redis.createClient({
@@ -27,7 +27,9 @@ client.connect().then(() => console.log("Redis Connected!"));
 exports.client = client;
 
 // Run Cache Cleanup Check every 1 hour
-setInterval(async () => {cache.delCache()}, 1000 * 60 * 60);
+setInterval(async () => {
+  cache.delCache();
+}, 1000 * 60 * 60);
 
 // All the routes
 app.get("/", (req, res) => {
@@ -195,26 +197,38 @@ app.get("/api", (req, res) => {
             let arr = useDimension.split("x");
             xDim = parseInt(arr[0], 10);
             yDim = parseInt(arr[1], 10);
-            ss.screenshot(useLink, xDim, yDim, useDelay, query).then(
-              (filepath) => {
+            ss.screenshot(useLink, xDim, yDim, useDelay, query)
+              .then((filepath) => {
                 cache.setcache(query, { filepath: filepath }).then((result) => {
                   res.sendFile(path.join(__dirname, result.filepath));
                 });
-              }
-            );
+              })
+              .catch((err) => {
+                res.status(400).send({
+                  status: "Error 400",
+                  code: "ERR_TIMEOUT",
+                  message: "Screenshot Failed due to timeout",
+                });
+              });
           } else if (!dimension && device) {
             let xDim, yDim;
             if (device == "desktop") {
               (xDim = defaultDesktopRes.X), (yDim = defaultDesktopRes.Y);
-              ss.screenshot(useLink, xDim, yDim, useDelay, query).then(
-                (filepath) => {
+              ss.screenshot(useLink, xDim, yDim, useDelay, query)
+                .then((filepath) => {
                   cache
                     .setcache(query, { filepath: filepath })
                     .then((result) => {
                       res.sendFile(path.join(__dirname, result.filepath));
                     });
-                }
-              );
+                })
+                .catch((err) => {
+                  res.status(400).send({
+                    status: "Error 400",
+                    code: "ERR_TIMEOUT",
+                    message: "Screenshot Failed due to timeout",
+                  });
+                });
             } else if (device == "mobile") {
               ss.screenshot(
                 useLink,
@@ -222,11 +236,21 @@ app.get("/api", (req, res) => {
                 defaultMobileRes.Y,
                 useDelay,
                 query
-              ).then((filepath) => {
-                cache.setcache(query, { filepath: filepath }).then((result) => {
-                  res.sendFile(path.join(__dirname, result.filepath));
+              )
+                .then((filepath) => {
+                  cache
+                    .setcache(query, { filepath: filepath })
+                    .then((result) => {
+                      res.sendFile(path.join(__dirname, result.filepath));
+                    });
+                })
+                .catch((err) => {
+                  res.status(400).send({
+                    status: "Error 400",
+                    code: "ERR_TIMEOUT",
+                    message: "Screenshot Failed due to timeout",
+                  });
                 });
-              });
             } else if (device == "tablet") {
               ss.screenshot(
                 useLink,
@@ -234,11 +258,21 @@ app.get("/api", (req, res) => {
                 defaultTabletRes.Y,
                 useDelay,
                 query
-              ).then((filepath) => {
-                cache.setcache(query, { filepath: filepath }).then((result) => {
-                  res.sendFile(path.join(__dirname, result.filepath));
+              )
+                .then((filepath) => {
+                  cache
+                    .setcache(query, { filepath: filepath })
+                    .then((result) => {
+                      res.sendFile(path.join(__dirname, result.filepath));
+                    });
+                })
+                .catch((err) => {
+                  res.status(400).send({
+                    status: "Error 400",
+                    code: "ERR_TIMEOUT",
+                    message: "Screenshot Failed due to timeout",
+                  });
                 });
-              });
             }
           } else {
             ss.screenshot(
@@ -247,11 +281,19 @@ app.get("/api", (req, res) => {
               defaultDesktopRes.Y,
               useDelay,
               query
-            ).then((filepath) => {
-              cache.setcache(query, { filepath: filepath }).then((result) => {
-                res.sendFile(path.join(__dirname, result.filepath));
+            )
+              .then((filepath) => {
+                cache.setcache(query, { filepath: filepath }).then((result) => {
+                  res.sendFile(path.join(__dirname, result.filepath));
+                });
+              })
+              .catch((err) => {
+                res.status(400).send({
+                  status: "Error 400",
+                  code: "ERR_TIMEOUT",
+                  message: "Screenshot Failed due to timeout",
+                });
               });
-            });
           }
         }
       })
