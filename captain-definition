@@ -3,7 +3,7 @@
   "dockerfileLines": [
                         "FROM node:16-bullseye",
                         "RUN apt update",
-                        "RUN apt install chromium-browser",
+                        "RUN apt install chromium",
                         "RUN mkdir -p /usr/src/app",
                         "WORKDIR /usr/src/app",
                         "COPY ./package.json /usr/src/app/",
