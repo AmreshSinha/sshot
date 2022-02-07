@@ -21,6 +21,9 @@ client.connect().then(() => console.log("Redis Connected!"));
 // Exporting Connected Client
 exports.client = client;
 
+// Run Cache Cleanup Check every 1 hour
+setInterval(async () => {cache.delCache()}, 1000 * 60 * 60);
+
 // All the routes
 app.get("/", (req, res) => {
   res.send("Hello World");
@@ -166,6 +169,7 @@ app.get("/api", (req, res) => {
   if (!errorState) {
     // Forming a query string
     let query = `${useLink}-${useDimension}-${useDevice}-${useDelay}`;
+    query = query.replace(/\W/g, "");
 
     // Checking if the file is in cache or not
     cache
@@ -178,13 +182,11 @@ app.get("/api", (req, res) => {
           if (dimension) {
             let xDim, yDim;
             let arr = useDimension.split("x");
-            console.log(arr);
             xDim = parseInt(arr[0], 10);
             yDim = parseInt(arr[1], 10);
             ss.screenshot(useLink, xDim, yDim, useDelay, query).then(
               (filepath) => {
                 cache.setcache(query, { filepath: filepath }).then((result) => {
-                  console.log(result);
                   res.sendFile(path.join(__dirname, result.filepath));
                 });
               }
@@ -198,7 +200,6 @@ app.get("/api", (req, res) => {
                   cache
                     .setcache(query, { filepath: filepath })
                     .then((result) => {
-                      console.log(result);
                       res.sendFile(path.join(__dirname, result.filepath));
                     });
                 }
@@ -212,7 +213,6 @@ app.get("/api", (req, res) => {
                 query
               ).then((filepath) => {
                 cache.setcache(query, { filepath: filepath }).then((result) => {
-                  console.log(result);
                   res.sendFile(path.join(__dirname, result.filepath));
                 });
               });
@@ -225,7 +225,6 @@ app.get("/api", (req, res) => {
                 query
               ).then((filepath) => {
                 cache.setcache(query, { filepath: filepath }).then((result) => {
-                  console.log(result);
                   res.sendFile(path.join(__dirname, result.filepath));
                 });
               });
@@ -239,7 +238,6 @@ app.get("/api", (req, res) => {
               query
             ).then((filepath) => {
               cache.setcache(query, { filepath: filepath }).then((result) => {
-                console.log(result);
                 res.sendFile(path.join(__dirname, result.filepath));
               });
             });
