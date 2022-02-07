@@ -1,0 +1,35 @@
+input: ./
+output: .retype
+url: # Add your website address here
+branding:
+  title: SSHOT
+  label: Docs
+
+meta:
+  title: " - Web Screenshot API"
+
+edit:
+  repo: github.com/AmreshSinha/sshot
+
+links:
+  - text: Home
+    link: /README.md
+    icon: home
+
+  - text: Issues
+    link: https://github.com/AmreshSinha/sshot/issues
+    icon: issue-opened
+    target: blank
+
+  - text: Github
+    link: https://github.com/AmreshSinha/sshot
+    icon: mark-github
+    target: blank
+
+# - text: Getting Started
+#   link: https://retype.com/guides/getting-started/
+footer:
+  copyright: © Copyright {{ year }}. [SSHOT](./) All rights reserved.
+  links:
+    - text: About
+      link: README.md

@@ -12,9 +12,7 @@ const app = express();
 const port = process.env.EXPRESS_PORT || 3000;
 
 // Setting Public Folder
-// app.use('/css', express.static(path.join(__dirname, './public/css')));
-// app.use('/js', express.static(path.join(__dirname, './public/js')));
-app.use("/images", express.static(path.join(__dirname, "./public/images")));
+app.use("/", express.static(path.join(__dirname, "./.retype")));
 
 // Connecting to Redis and Launching Express App
 const client = redis.createClient({
@@ -33,8 +31,7 @@ setInterval(async () => {
 
 // All the routes
 app.get("/", (req, res) => {
-  res.send("Hello World!");
-  // res.sendFile(path.join(__dirname, "./public/index.html"));
+  res.redirect("/index.html");
 });
 
 app.get("/api", (req, res) => {

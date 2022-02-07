@@ -8,7 +8,7 @@ icon: rocket
 
 [SSHOT](https://sshot.x-axis.me/) is a :sparkles: **Web Screenshot API** :sparkles: with caching kept in mind!
 
-![](./sshot.png)
+![](./public/images/sshot.png)
 
 Just pass in the parameters for the screenshot, copy the link and you are good to go! :rocket:
 
