@@ -11,6 +11,11 @@ require("dotenv").config();
 const app = express();
 const port = process.env.EXPRESS_PORT || 3000;
 
+// Setting Public Folder
+// app.use('/css', express.static(path.join(__dirname, './public/css')));
+// app.use('/js', express.static(path.join(__dirname, './public/js')));
+app.use('/images', express.static(path.join(__dirname, './public/images')))
+
 // Connecting to Redis and Launching Express App
 const client = redis.createClient({
   url: `redis://default:${process.env.REDIS_PASSWORD}@${process.env.REDIS_URI}:${process.env.REDIS_PORT}`,
@@ -26,7 +31,8 @@ setInterval(async () => {cache.delCache()}, 1000 * 60 * 60);
 
 // All the routes
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  res.send("Hello World!");
+  // res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
 app.get("/api", (req, res) => {
@@ -84,7 +90,7 @@ app.get("/api", (req, res) => {
       if (xy.length != 2) {
         return false;
       } else {
-        if (xy[0] < 1 || xy[1] < 1) {
+        if (xy[0] < 100 || xy[1] < 100) {
           return false;
         } else {
           return true;
@@ -118,6 +124,7 @@ app.get("/api", (req, res) => {
       paramsBoolObject.link = false;
       res.status(400).send({
         status: "Error 400",
+        code: "ERR_INVALID_LINK",
         message: "Not a good Link",
       });
     }
@@ -126,6 +133,7 @@ app.get("/api", (req, res) => {
     paramsBoolObject.link = false;
     res.status(400).send({
       status: "Error 400",
+      code: "ERR_NO_LINK",
       message: "Link not provided",
     });
   }
@@ -137,6 +145,7 @@ app.get("/api", (req, res) => {
       errorState = true;
       res.status(400).send({
         status: "Error 400",
+        code: "ERR_INVALID_DIMENSION",
         message: "Not a good Dimension",
       });
     }
@@ -149,6 +158,7 @@ app.get("/api", (req, res) => {
       errorState = true;
       res.status(400).send({
         status: "Error 400",
+        code: "ERR_INVALID_DEVICE",
         message: "Not a good Device",
       });
     }
@@ -161,6 +171,7 @@ app.get("/api", (req, res) => {
       errorState = true;
       res.status(400).send({
         status: "Error 400",
+        code: "ERR_INVALID_DELAY",
         message: "Delay is not valid or not in range",
       });
     }
