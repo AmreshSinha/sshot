@@ -48,9 +48,9 @@ Cache will expire after 24 hours of inactivity :wastebasket:.
 
 ## API Parameters
 
-Endpoint: `http://localhost:3000/api?`
+Endpoint: ```http://localhost:3000/api?```
 
-Example: `http://localhost:3000/api?link=https://google.com&device=tablet`
+Example: ```http://localhost:3000/api?link=https://google.com&device=tablet```
 
 | Parameter   | Description |
 | ----------- | ----------- |
@@ -65,10 +65,11 @@ Example: `http://localhost:3000/api?link=https://google.com&device=tablet`
 
 You may get a `400` Error Header and a `Error 400` status message when you provide any parameter wrongly.
 
-| Error `code`            | Description                                                                                                   |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `ERR_INVALID_LINK`      | Link provided is not valid! Make sure it starts with `http(s)://` .                                           |
-| `ERR_NO_LINK`           | Link is not provided! Looks like you haven't provided any `link` at all!                                        |
+| Error `code`            | Description                                                                                                    |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `ERR_INVALID_LINK`      | Link provided is not valid! Make sure it starts with `http(s)://` .                                            |
+| `ERR_NO_LINK`           | Link is not provided! Looks like you haven't provided any `link` at all!                                       |
 | `ERR_INVALID_DIMENSION` | Dimension provided is not valid! Make sure the `dimension` are in range and in the format `[width]x[height]` . |
-| `ERR_INVALID_DEVICE`    | Device provided is not valid! Make sure the `device` is `desktop`, `mobile` or `tablet` . |
-| `ERR_INVALID_DELAY`     | Delay provided is not valid! Make sure the `delay` is in the range `0` to `5000` . |
+| `ERR_INVALID_DEVICE`    | Device provided is not valid! Make sure the `device` is `desktop`, `mobile` or `tablet` .                      |
+| `ERR_INVALID_DELAY`     | Delay provided is not valid! Make sure the `delay` is in the range `0` to `5000` .                             |
+| `ERR_TIMEOUT`           | Link provided took more than `10s` to load and thus haulted and resulted in `ERR_TIMEOUT`                      |
