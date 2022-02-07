@@ -21,6 +21,9 @@ const client = redis.createClient({
 client.on("error", (err) => console.log("Redis Client Error", err));
 client.connect().then(() => console.log("Redis Connected!"));
 
+// Flush DB on startup
+client.flushDb();
+
 // Exporting Connected Client
 exports.client = client;
 
