@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "dockerfileLines": [
                         "FROM ubuntu:18.04",
-                        "RUN apt-get update",
+                        "RUN apt-get update -y",
                         "RUN apt-get install nodejs npm -y",
                         "RUN npm install -g npm@latest && npm install -g n && n 16",
                         "RUN apt-get install chromium-browser -y",
