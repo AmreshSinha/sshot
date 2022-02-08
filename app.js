@@ -92,7 +92,7 @@ app.get("/api", (req, res) => {
       if (xy.length != 2) {
         return false;
       } else {
-        if (xy[0] < 100 || xy[1] < 100) {
+        if ((xy[0] < 100 || xy[1] < 100) || (xy[0] > 1920 || xy[1] > 1920)) {
           return false;
         } else {
           return true;
