@@ -204,6 +204,7 @@ app.get("/api", (req, res) => {
                 });
               })
               .catch((err) => {
+                console.log(err);
                 res.status(400).send({
                   status: "Error 400",
                   code: "ERR_TIMEOUT",
@@ -223,6 +224,7 @@ app.get("/api", (req, res) => {
                     });
                 })
                 .catch((err) => {
+                  console.log(err);
                   res.status(400).send({
                     status: "Error 400",
                     code: "ERR_TIMEOUT",
@@ -245,6 +247,7 @@ app.get("/api", (req, res) => {
                     });
                 })
                 .catch((err) => {
+                  console.log(err);
                   res.status(400).send({
                     status: "Error 400",
                     code: "ERR_TIMEOUT",
@@ -267,6 +270,7 @@ app.get("/api", (req, res) => {
                     });
                 })
                 .catch((err) => {
+                  console.log(err);
                   res.status(400).send({
                     status: "Error 400",
                     code: "ERR_TIMEOUT",
@@ -288,6 +292,7 @@ app.get("/api", (req, res) => {
                 });
               })
               .catch((err) => {
+                console.log(err);
                 res.status(400).send({
                   status: "Error 400",
                   code: "ERR_TIMEOUT",
