@@ -1,9 +1,9 @@
 input: ./
 output: .retype
-url: # Add your website address here
+url: sshot.x-axis.me
 branding:
   title: SSHOT
-  label: Docs
+  label: v1.0.0
 
 meta:
   title: " - Web Screenshot API"
