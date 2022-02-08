@@ -1,9 +1,11 @@
 {
   "schemaVersion": 2,
   "dockerfileLines": [
-                        "FROM node:16-bullseye",
-                        "RUN apt update",
-                        "RUN apt install chromium-browser -y",
+                        "FROM ubuntu:18.04",
+                        "RUN apt-get update",
+                        "RUN apt-get install nodejs npm",
+                        "RUN npm install -g npm@latest && npm install -g n && n 16",
+                        "RUN apt-get install chromium-browser -y",
                         "RUN wget https://download.visualstudio.microsoft.com/download/pr/27840e8b-d61c-472d-8e11-c16784d40091/ae9780ccda4499405cf6f0924f6f036a/dotnet-sdk-5.0.100-linux-arm64.tar.gz -O /tmp/dotnet-sdk-5.0.100-linux-arm64.tar.gz",
                         "RUN mkdir /lib/dotnet-arm64 && tar zxf /tmp/dotnet-sdk-5.0.100-linux-arm64.tar.gz -C /lib/dotnet-arm64",
                         "ENV DOTNET_ROOT=/lib/dotnet-arm64",
