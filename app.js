@@ -86,7 +86,7 @@ app.get("/api", (req, res) => {
     return url_string.protocol === "http:" || url_string.protocol === "https:";
   }
   function isValidDimension(_string) {
-    const matchPattern = /^([0-9].*)x([1-9].*)$/;
+    const matchPattern = /^(\d+)x(\d+)$/;
     if (matchPattern.test(_string)) {
       const xy = _string.split("x");
       if (xy.length != 2) {
