@@ -7,7 +7,6 @@ module.exports = {
   screenshot : async (link, xDim, yDim, delay, query) => {
     let { stdout, stderr } = await exec('uname -m');
     stdout = stdout.replace(/(\r\n|\n|\r)/gm, "");
-    console.log(`"${stdout}"`)
     let browser;
     if (stdout == "aarch64") {
       browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox'], timeout: 10000 })
