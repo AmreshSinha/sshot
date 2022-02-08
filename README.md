@@ -23,19 +23,19 @@ You can call it from anywhere whether its a normal HTTP GET call from browser or
 +++ HTTP GET
 
 ```
-http://localhost:3000/api?link=https://github.com
+https://sshot.x-axis.me/api?link=https://github.com
 ```
 
 +++ cURL
 
 ```bash
-curl "http://localhost:3000/api?link=https://github.com" --output filename.png
+curl "https://sshot.x-axis.me/api?link=https://github.com" --output filename.png
 ```
 
 +++ Wget
 
 ```bash
-wget "http://localhost:3000/api?link=https://github.com" -O filename.png
+wget "https://sshot.x-axis.me/api?link=https://github.com" -O filename.png
 ```
 
 +++
@@ -48,9 +48,9 @@ Cache will expire after 24 hours of inactivity :wastebasket:.
 
 ## API Parameters
 
-Endpoint: ```http://localhost:3000/api?```
+Endpoint: ```https://sshot.x-axis.me/api?```
 
-Example: ```http://localhost:3000/api?link=https://google.com&device=tablet```
+Example: ```https://sshot.x-axis.me/api?link=https://google.com&device=tablet```
 
 | Parameter   | Description |
 | ----------- | ----------- |
