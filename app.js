@@ -1,6 +1,7 @@
 const express = require("express");
 const redis = require("redis");
 const path = require("path");
+const crypto = require("crypto");
 const cache = require("./src/cache");
 const ss = require("./src/puppeteer");
 
@@ -183,6 +184,7 @@ app.get("/api", (req, res) => {
     // Forming a query string
     let query = `${useLink}-${useDimension}-${useDevice}-${useDelay}`;
     query = query.replace(/\W/g, "");
+    query = crypto.createHash('sha1').update(query).digest("hex");
 
     // Checking if the file is in cache or not
     cache
