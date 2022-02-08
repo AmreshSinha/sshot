@@ -18,6 +18,7 @@
                         "ENV NODE_ENV production",
                         "ENV PORT 80",
                         "EXPOSE 80",
-                        "CMD retypeapp build && node app.js"
+                        "RUN ls && retype build",
+                        "CMD node app.js"
                     ]
 }
