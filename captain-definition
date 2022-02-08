@@ -13,18 +13,17 @@
                         "ENV DOTNET_ROOT=/lib/dotnet-arm64",
                         "ENV PATH=/lib/dotnet-arm64:$PATH",
                         "ENV PATH=$PATH:/root/.dotnet/tools",
-                        "RUN echo $PATH",
-                        "RUN dotnet --info",
                         "RUN mkdir -p /usr/src/app",
                         "WORKDIR /usr/src/app",
                         "COPY ./package.json /usr/src/app/",
                         "RUN npm install && npm cache clean --force",
+                        "RUN dotnet tool install --global retypeapp",
                         "COPY ./ /usr/src/app",
                         "ENV NODE_ENV production",
                         "ENV PORT 80",
                         "EXPOSE 80",
-                        "RUN dotnet tool install --global retypeapp",
                         "RUN retype build",
+                        "RUN ls -ls /snap/bin/",
                         "CMD node app.js"
                     ]
 }
