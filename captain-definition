@@ -8,7 +8,7 @@
                         "RUN mkdir /lib/dotnet-arm64 && tar zxf /tmp/dotnet-sdk-5.0.100-linux-arm64.tar.gz -C /lib/dotnet-arm64",
                         "ENV DOTNET_ROOT=/lib/dotnet-arm64",
                         "ENV PATH=/lib/dotnet-arm64:$PATH",
-                        "ENV PATH="$PATH:/root/.dotnet/tools",
+                        "ENV PATH=$PATH:/root/.dotnet/tools",
                         "RUN echo $PATH",
                         "RUN dotnet --info",
                         "RUN mkdir -p /usr/src/app",
