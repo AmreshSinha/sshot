@@ -3,7 +3,7 @@
   "dockerfileLines": [
                         "FROM ubuntu:18.04",
                         "RUN apt-get update -y",
-                        "RUN apt-get install nodejs npm -y",
+                        "RUN apt-get install nodejs npm curl wget -y",
                         "RUN npm install -g n",
                         "RUN n 16",
                         "RUN npm install --global npm@latest",
