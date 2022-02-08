@@ -10,7 +10,7 @@ module.exports = {
     console.log(`"${stdout}"`)
     let browser;
     if (stdout == "aarch64") {
-      browser = await puppeteer.launch({ executablePath: '/snap/bin/chromium-browser' })
+      browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser' })
     } else {
       browser = await puppeteer.launch();
     }
