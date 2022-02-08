@@ -1,9 +1,19 @@
 const puppeteer = require('puppeteer');
 const path = require('path');
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
 
 module.exports = {
   screenshot : async (link, xDim, yDim, delay, query) => {
-    const browser = await puppeteer.launch();
+    let { stdout, stderr } = await exec('uname -m');
+    stdout = stdout.replace(/(\r\n|\n|\r)/gm, "");
+    console.log(`"${stdout}"`)
+    let browser;
+    if (stdout == "aarch64") {
+      browser = await puppeteer.launch({ executablePath: '/snap/bin/chromium-browser' })
+    } else {
+      browser = await puppeteer.launch();
+    }
     const page = await browser.newPage();
     page.setDefaultTimeout(10000);
     await page.setViewport({
