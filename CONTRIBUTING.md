@@ -121,3 +121,27 @@ If you are running a different os then you may need to install `chromium` on you
 
 And as always you can open an issue or ping me up on mail if you have any problem: [amresh@duck.com](mailto:amresh@duck.com)
 
+## Security, Privacy & Speed
+
+Make sure your implementation don't have any security flaws, or violates any Privacy and is fast enough! 
+
+We will be more than happy to help you with your implementation if you are stuck somewhere or need any guidance! 🤗
+
+## Dependencies
+
+While working on any implementation please avoid introducing new dependencies to sshot. We know that a dependency can cut the amount of work needed in implementation and can make it less time consuming. But it can add security issues or any other vital issue.
+
+If you are still thinking to add one then make sure it has a nice reputation, has a vital usecase for the implementation and has the least possible chance of risk.
+
+## Tests
+
+Currently there aren't any tests. We will be more than happy if you add some!
+
+## Other ways to help!
+
+- Incorporating in your Blog
+- Incorporating in any of your Project
+- Sending Feedbacks
+- Discussing on New Ideas
+- Fixing and Improving Documentation
+- Helping someone with their issue
