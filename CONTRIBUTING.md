@@ -1,6 +1,6 @@
 ---
 label: Contributing
-icon: versions
+icon: book
 ---
 # Contributing
 
