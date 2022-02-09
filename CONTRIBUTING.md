@@ -121,7 +121,7 @@ If you are running a different os then you may need to install `chromium` on you
 
 And as always you can open an issue or ping me up on mail if you have any problem: [amresh@duck.com](mailto:amresh@duck.com)
 
-## Security, Privacy & Speed
+## Security 🔐, Privacy 🕵️ & Speed 🚀
 
 Make sure your implementation don't have any security flaws, or violates any Privacy and is fast enough! 
 
