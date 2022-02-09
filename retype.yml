@@ -3,7 +3,7 @@ output: .retype
 url: sshot.x-axis.me
 branding:
   title: SSHOT
-  label: v1.0.0
+  label: v1.1.0
 
 meta:
   title: " - Web Screenshot API"
