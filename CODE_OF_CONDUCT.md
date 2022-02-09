@@ -1,3 +1,7 @@
+---
+label: Code of Conduct
+icon: code-of-conduct
+---
 # Code of Conduct
 
 All participants of sshot are expected to abide by our Code of Conduct, both online and during in-person events that are hosted and/or associated with sshot.
