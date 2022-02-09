@@ -1,3 +1,7 @@
+---
+label: Contributing
+icon: versions
+---
 # Contributing
 
 Thanks for investing some of your time for contributing to this project :blush:! Make sure you read our [Code of Conduct](./CODE_OF_CONDUCT.md) once before contributing to keep our community safe, approachable and respectable for all.
