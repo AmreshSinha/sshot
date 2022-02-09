@@ -24,5 +24,4 @@ If you are assigned to a issue which is a bug report with issue id #23 then your
 doc-23-submit-a-pull-request-section-to-contribution-guide
 ```
 
-
-
+![image](https://user-images.githubusercontent.com/35039730/153134660-88425451-6d43-4fa9-ac49-2d5c24e23fd6.png)
