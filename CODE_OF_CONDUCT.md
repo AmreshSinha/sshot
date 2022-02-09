@@ -1,6 +1,6 @@
 ---
 label: Code of Conduct
-icon: code-of-conduct
+icon: alert
 ---
 # Code of Conduct
 

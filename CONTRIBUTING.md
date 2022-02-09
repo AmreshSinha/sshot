@@ -1,6 +1,7 @@
 ---
 label: Contributing
 icon: book
+order: 2
 ---
 # Contributing
 
