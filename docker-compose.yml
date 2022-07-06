@@ -1,0 +1,42 @@
+# For hosting with Traefik. Make sure you already have Traefik configured.
+version: '3.7'
+
+services:
+  sshot:
+    build: .
+    restart: always
+      - redis
+    environment:
+      NODE_ENV: production
+      EXPRESS_PORT: 3000
+      REDIS_URI: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: sOmE_sEcUrE_pAsS
+    networks:
+      - default
+      - proxy
+    volumes:
+      - ./images:/cache
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      - "traefik.http.routers.sshot-secure.entrypoints=websecure"
+      - "traefik.http.routers.sshot-secure.rule=Host(`sshot.x-axis.me`)"
+      - "traefik.http.routers.sshot-secure.service=sshot-service"
+      - "traefik.http.services.sshot-service.loadbalancer.server.port=3000"
+    
+  redis:
+    image: redis:7
+    restart: always
+    command: redis-server --requirepass sOmE_sEcUrE_pAsS
+    volumes:
+      - ./redis-data:/var/lib/redis
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    environment:
+      REDIS_REPLICATION_MODE: master
+    networks:
+      - default
+
+networks:
+  proxy:
+    external: true
