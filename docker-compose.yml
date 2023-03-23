@@ -4,8 +4,9 @@ version: '3.7'
 services:
   sshot:
     build: .
-    restart: always
+    depends_on:
       - redis
+    restart: always
     environment:
       NODE_ENV: production
       EXPRESS_PORT: 3000
