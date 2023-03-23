@@ -21,7 +21,7 @@ services:
       - "traefik.enable=true"
       - "traefik.docker.network=proxy"
       - "traefik.http.routers.sshot-secure.entrypoints=websecure"
-      - "traefik.http.routers.sshot-secure.rule=Host(`sshot.x-axis.me`)"
+      - "traefik.http.routers.sshot-secure.rule=Host(`sshot.prj.fossian.com`)"
       - "traefik.http.routers.sshot-secure.service=sshot-service"
       - "traefik.http.services.sshot-service.loadbalancer.server.port=3000"
     
