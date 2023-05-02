@@ -6,7 +6,7 @@ icon: rocket
 
 (/s:shot/)
 
-[SSHOT](https://sshot.x-axis.me/) is a :sparkles: **Web Screenshot API** :sparkles: with caching kept in mind!
+[SSHOT](https://sshot.fossian.com/) is a :sparkles: **Web Screenshot API** :sparkles: with caching kept in mind!
 
 ![](./public/images/sshot.png)
 
@@ -23,19 +23,19 @@ You can call it from anywhere whether its a normal HTTP GET call from browser or
 +++ HTTP GET
 
 ```
-https://sshot.x-axis.me/api?link=https://github.com
+https://sshot.fossian.com/api?link=https://github.com
 ```
 
 +++ cURL
 
 ```bash
-curl "https://sshot.x-axis.me/api?link=https://github.com" --output filename.png
+curl "https://sshot.fossian.com/api?link=https://github.com" --output filename.png
 ```
 
 +++ Wget
 
 ```bash
-wget "https://sshot.x-axis.me/api?link=https://github.com" -O filename.png
+wget "https://sshot.fossian.com/api?link=https://github.com" -O filename.png
 ```
 
 +++
@@ -48,9 +48,9 @@ Cache will expire after 24 hours of inactivity :wastebasket:.
 
 ## API Parameters
 
-Endpoint: ```https://sshot.x-axis.me/api?```
+Endpoint: ```https://sshot.fossian.com/api?```
 
-Example: ```https://sshot.x-axis.me/api?link=https://google.com&device=tablet```
+Example: ```https://sshot.fossian.com/api?link=https://google.com&device=tablet```
 
 | Parameter   | Description |
 | ----------- | ----------- |
